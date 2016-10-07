@@ -1,0 +1,20 @@
+{
+  "name": "2-nfl-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Brian",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "browserify": "^13.1.0",
+    "express": "^4.14.0",
+    "nodemon": "^1.11.0",
+    "request": "^2.75.0",
+    "webpack-dev-server": "^1.16.2"
+  }
+}
