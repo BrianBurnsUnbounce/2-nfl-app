@@ -1,3 +1,15 @@
-/**
- * Created by brianburns on 2016-11-13.
- */
+import React from "react";
+
+export default function Square(props) {
+    return (
+        <button className="team-button">
+            {props.name}
+        </button>
+    );
+}
+
+
+
+
+
+

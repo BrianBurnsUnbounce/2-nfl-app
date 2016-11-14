@@ -17,21 +17,21 @@ var playerList = ["Andrew Luck", "Matt Forte"];
  * GET /
  * Return the list of NFL teams
  */
-router.get(['/'], function (req, res, next) {
-    console.log('NFL teams');
-
-    // Compose the url request for the teams
-    var teamsListUrl = baseUrl + 'nfl-teams/' + format + key;
-
-    // Get the list of teams
-    request.get(teamsListUrl, function (err, response, body) {
-        if (err) throw err;
-
-        var parsed = JSON.parse(body);
-        console.log(parsed);
-        res.send(parsed);
-    })
-});
+// router.get(['/'], function (req, res, next) {
+//     console.log('NFL teams');
+//
+//     // Compose the url request for the teams
+//     var teamsListUrl = baseUrl + 'nfl-teams/' + format + key;
+//
+//     // Get the list of teams
+//     request.get(teamsListUrl, function (err, response, body) {
+//         if (err) throw err;
+//
+//         var parsed = JSON.parse(body);
+//         console.log(parsed);
+//         res.send(parsed);
+//     })
+// });
 
 
 /**
@@ -181,6 +181,24 @@ router.get('/my-team', function (req, res, next) {
 
 var app = express();
 
+/**
+ * React Middleware
+ */
+app.use(function(req, res) {
+    Router.match({ routes: routes.default, location: req.url }, function(err, redirectLocation, renderProps) {
+        if (err) {
+            res.status(500).send(err.message)
+        } else if (redirectLocation) {
+            res.status(302).redirect(redirectLocation.pathname + redirectLocation.search)
+        } else if (renderProps) {
+            var html = ReactDOM.renderToString(React.createElement(Router.RoutingContext, renderProps));
+            var page = swig.renderFile('views/index.html', { html: html });
+            res.status(200).send(page);
+        } else {
+            res.status(404).send('Page Not Found')
+        }
+    });
+});
 
 app.use('/', router)
     .use(express.static(__dirname + '/public'))
