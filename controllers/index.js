@@ -7,7 +7,7 @@ var express = require('express')
 router.use('/teams', require('./teams.js'));
 
 router.get('/', function(req, res) {
-    res.send('Home Page');
+    res.render('./views/index.html');
 });
 
 module.exports = router;
